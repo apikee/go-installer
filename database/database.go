@@ -1,10 +1,11 @@
 package database
 
 import (
-	"installer/model"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/apikee/installer/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

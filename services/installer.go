@@ -2,9 +2,10 @@ package services
 
 import (
 	"fmt"
-	"installer/database"
 	"os"
 	"os/exec"
+
+	"github.com/apikee/installer/database"
 )
 
 func AddAlias() {

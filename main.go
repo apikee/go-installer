@@ -1,9 +1,10 @@
 package main
 
 import (
-	"installer/database"
-	"installer/services"
 	"os"
+
+	"github.com/apikee/installer/database"
+	"github.com/apikee/installer/services"
 )
 
 func main() {
