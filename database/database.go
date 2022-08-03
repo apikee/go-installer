@@ -33,7 +33,9 @@ func New() {
 		log.Fatal(err)
 	}
 
-	DB.AutoMigrate(&model.Alias{}, &model.Path{})
+	if err = DB.AutoMigrate(&model.Alias{}, &model.Path{}); err != nil {
+		panic(err)
+	}
 }
 
 func CreateAlias(alias string) (model.Alias, error) {
