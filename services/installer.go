@@ -64,11 +64,12 @@ func InstallDependenciesByAlias() {
 		stdout, err := cmd.Output()
 
 		if err != nil {
-			fmt.Println(err.Error())
-			return
+			panic(err.Error())
 		}
 
-		fmt.Println(string(stdout))
+		if len(string(stdout)) > 0 {
+			fmt.Println(string(stdout))
+		}
 	}
 }
 
