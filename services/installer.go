@@ -63,5 +63,5 @@ func RemoveRecordByAlias() {
 		panic(err)
 	}
 
-	fmt.Printf("Record %v deleted", alias)
+	fmt.Printf("Record %v deleted\n", alias)
 }
