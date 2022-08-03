@@ -10,58 +10,74 @@ import (
 
 func AddAlias() {
 	alias := os.Args[2]
-	path := os.Args[3]
+	path := os.Args[3:]
 
-	if alias == "" || path == "" {
+	if alias == "" || len(path) == 0 {
 		panic("missing arguments")
 	}
 
-	err := database.CreateRecord(alias, path)
+	resAlias, err := database.CreateAlias(alias)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Record created")
+	for _, p := range path {
+		if err := database.CreatePath(p, resAlias.ID); err != nil {
+			panic(err)
+		}
+	}
+
+	fmt.Printf("Record %v created\n", alias)
 }
 
 func ListAliases() {
-	aliases, err := database.FindAllRecords()
+	aliases, err := database.FindAllAliases()
 	if err != nil {
 		panic(err)
 	}
 
 	for _, a := range aliases {
-		fmt.Printf("ID: %v, Alias: %v, Path: %v\n", a.ID, a.Alias, a.Path)
+		paths, err := database.FindPathsByAliasID(a.ID)
+		if err != nil {
+			panic(err)
+		}
+
+		for _, p := range paths {
+			fmt.Printf("Alias: %v Path: %v\n", a.Alias, p.Path)
+		}
+
+		fmt.Println()
 	}
 }
 
-func InstallDependencyByAlias() {
+func InstallDependenciesByAlias() {
 	alias := os.Args[2]
 
-	record, err := database.FindRecordByAlias(alias)
+	paths, err := database.FindPathsByAlias(alias)
 	if err != nil {
 		panic(err)
 	}
 
-	cmd := exec.Command("go", "get", record.Path)
+	for _, p := range paths {
+		fmt.Printf("Installing %v from alias %v\n", p.Path, alias)
+		cmd := exec.Command("go", "get", p.Path)
+		stdout, err := cmd.Output()
 
-	stdout, err := cmd.Output()
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 
-	if err != nil {
-		fmt.Println(err.Error())
-		return
+		fmt.Println(string(stdout))
 	}
-
-	fmt.Println(string(stdout))
 }
 
-func RemoveRecordByAlias() {
+func DeleteAlias() {
 	alias := os.Args[2]
 
-	err := database.DeleteRecordByAlias(alias)
-	if err != nil {
+	if err := database.DeleteAlias(alias); err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Record %v deleted\n", alias)
+	fmt.Printf("Alias %v deleted\n", alias)
 }

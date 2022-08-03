@@ -17,8 +17,8 @@ func main() {
 	case "list":
 		services.ListAliases()
 	case "install":
-		services.InstallDependencyByAlias()
-	case "remove":
-		services.RemoveRecordByAlias()
+		services.InstallDependenciesByAlias()
+	case "delete":
+		services.DeleteAlias()
 	}
 }
