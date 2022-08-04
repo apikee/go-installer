@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/apikee/installer/model"
+	"github.com/apikee/installer/internal/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -53,7 +53,7 @@ func CreatePath(path string, aliasID uint) error {
 }
 
 func FindAllAliases() ([]model.Alias, error) {
-	var aliases []model.Alias
+	aliases := []model.Alias{}
 
 	if err := DB.Find(&aliases).Error; err != nil {
 		return []model.Alias{}, err

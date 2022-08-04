@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/apikee/installer/database"
+	"github.com/apikee/installer/internal/database"
 )
 
 func AddAlias() {
@@ -38,6 +38,7 @@ func ListAliases() {
 
 	for _, a := range aliases {
 		paths, err := database.FindPathsByAliasID(a.ID)
+
 		if err != nil {
 			panic(err)
 		}

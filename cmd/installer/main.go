@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/apikee/installer/database"
-	"github.com/apikee/installer/services"
+	"github.com/apikee/installer/internal/database"
+	"github.com/apikee/installer/internal/services"
 )
 
 func main() {
