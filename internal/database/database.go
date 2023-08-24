@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/apikee/installer/internal/model"
+	"github.com/apikee/go-installer/internal/model"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

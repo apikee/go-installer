@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/apikee/installer/internal/database"
+	"github.com/apikee/go-installer/internal/database"
 )
 
 func AddAlias() {

@@ -1,4 +1,4 @@
-module github.com/apikee/installer
+module github.com/apikee/go-installer
 
 go 1.18
 
